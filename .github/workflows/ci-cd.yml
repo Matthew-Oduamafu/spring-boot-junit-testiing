@@ -51,3 +51,4 @@ jobs:
       # Step 4: Push Docker image to Docker Hub
       - name: Push Docker Image
         run: docker push ${{ secrets.DOCKER_HUB_USERNAME }}/spring-boot-application:${{ github.sha }}
+
