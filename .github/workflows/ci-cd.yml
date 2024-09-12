@@ -39,8 +39,17 @@ jobs:
     - name: Package application
       run: mvn package
 
+    - name: Build Docker image
+      run: docker build -t matthewoduamafu/spring-boot-application:latest .
+
+    - name: Log in to Docker Hub
+      run: echo ${{ secrets.DOCKER_HUB_PASSWORD }} | docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
+
+    - name: Push Docker image
+      run: docker push matthewoduamafu/spring-boot-application:latest
+
     - name: Archive JAR file
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: spring-boot-application
         path: target/*.jar
