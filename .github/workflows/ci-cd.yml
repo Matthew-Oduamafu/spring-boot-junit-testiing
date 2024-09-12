@@ -42,13 +42,13 @@ jobs:
     - name: Build Docker image
       run: docker build -t MatthewOduamafu/spring-boot-application:latest .
 
-    - name: Log in to Docker Hub
-      run: echo "${{ secrets.DOCKER_HUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_HUB_USERNAME }}" --password-stdin
-
     - name: Debug secrets
       run: |
         echo "Username: ${{ secrets.DOCKER_HUB_USERNAME }}"
         echo "Password: ${{ secrets.DOCKER_HUB_PASSWORD }}" | wc -c
+
+    - name: Log in to Docker Hub
+      run: echo "${{ secrets.DOCKER_HUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_HUB_USERNAME }}" --password-stdin
 
     - name: Push Docker image
       run: docker push MatthewOduamafu/spring-boot-application:latest
