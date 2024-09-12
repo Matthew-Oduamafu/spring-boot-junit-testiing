@@ -13,48 +13,48 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-      - name: Set up JDK 17
-        uses: actions/setup-java@v2
-        with:
-          distribution: 'adopt'
-          java-version: '17'
+    - name: Set up JDK 17
+      uses: actions/setup-java@v2
+      with:
+        distribution: 'adopt'
+        java-version: '17'
 
-      - name: Cache Maven packages
-        uses: actions/cache@v2
-        with:
-          path: ~/.m2
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-maven-
+    - name: Cache Maven packages
+      uses: actions/cache@v2
+      with:
+        path: ~/.m2
+        key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+        restore-keys: |
+          ${{ runner.os }}-maven-
 
-      - name: Build with Maven
-        run: mvn clean install
+    - name: Build with Maven
+      run: mvn clean install
 
-      - name: Run tests
-        run: mvn test
+    - name: Run tests
+      run: mvn test
 
-      - name: Package application
-        run: mvn package
+    - name: Package application
+      run: mvn package
 
-      - name: Build Docker image
-        run: docker build -t MatthewOduamafu/spring-boot-application:latest .
+    - name: Build Docker image
+      run: docker build -t MatthewOduamafu/spring-boot-application:latest .
 
-      - name: Log in to Docker Hub
-        run: echo "${{ secrets.DOCKER_HUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_HUB_USERNAME }}" --password-stdin
+    - name: Log in to Docker Hub
+      run: echo "${{ secrets.DOCKER_HUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_HUB_USERNAME }}" --password-stdin
 
-      - name: Debug secrets
-        run:
-          echo "Username:
-            ${{ secrets.DOCKER_HUB_USERNAME }}" && echo "Password: ${{ secrets.DOCKER_HUB_PASSWORD }}" | wc -c
+    - name: Debug secrets
+      run:
+        echo "Username:
+          ${{ secrets.DOCKER_HUB_USERNAME }}" && echo "Password: ${{ secrets.DOCKER_HUB_PASSWORD }}" | wc -c
 
-      - name: Push Docker image
-        run: docker push MatthewOduamafu/spring-boot-application:latest
+    - name: Push Docker image
+      run: docker push MatthewOduamafu/spring-boot-application:latest
 
-      - name: Archive JAR file
-        uses: actions/upload-artifact@v3
-        with:
-          name: spring-boot-application
-          path: target/*.jar
+    - name: Archive JAR file
+      uses: actions/upload-artifact@v3
+      with:
+        name: spring-boot-application
+        path: target/*.jar
