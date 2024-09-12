@@ -47,8 +47,7 @@ jobs:
 
     - name: Debug secrets
       run:
-        echo "Username:
-          ${{ secrets.DOCKER_HUB_USERNAME }}" && echo "Password: ${{ secrets.DOCKER_HUB_PASSWORD }}" | wc -c
+        echo "Username:${{ secrets.DOCKER_HUB_USERNAME }}" && echo "Password: ${{ secrets.DOCKER_HUB_PASSWORD }}" | wc -c
 
     - name: Push Docker image
       run: docker push MatthewOduamafu/spring-boot-application:latest
