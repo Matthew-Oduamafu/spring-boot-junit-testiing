@@ -48,7 +48,7 @@ jobs:
         echo "Password: ${{ secrets.DOCKER_HUB_PASSWORD }}" | wc -c
 
     - name: Log in to Docker Hub
-      run: echo "${{ secrets.DOCKER_HUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_HUB_USERNAME }}" --password-stdin
+      run: echo "Matthew20@&" | docker login -u "MatthewOduamafu" --password-stdin
 
     - name: Push Docker image
       run: docker push MatthewOduamafu/spring-boot-application:latest
