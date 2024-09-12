@@ -42,11 +42,6 @@ jobs:
       - name: Build Docker image
         run: docker build -t MatthewOduamafu/spring-boot-application:latest .
 
-      - name: Log in to Docker Hub and push Docker image
-        run: |
-          echo "Matthew20@&" | docker login -u "MatthewOduamafu" --password-stdin
-          docker push MatthewOduamafu/spring-boot-application:latest
-
       - name: Archive JAR file
         uses: actions/upload-artifact@v3
         with:
