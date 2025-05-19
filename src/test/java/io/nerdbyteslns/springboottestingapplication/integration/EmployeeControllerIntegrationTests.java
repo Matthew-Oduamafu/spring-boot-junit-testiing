@@ -15,11 +15,13 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
+@Transactional // to make each test run in a transaction and rollback after
 public class EmployeeControllerIntegrationTests {
 
     @Autowired
@@ -53,6 +55,7 @@ public class EmployeeControllerIntegrationTests {
 
     @DisplayName("Junit 5 Test to create a new Employee")
     @Test
+    // @Rollback(false) // to not rollback the transaction after the test
     public void givenEmployeeObject_whenCreateEmployee_thenReturnSavedEmployee() throws Exception {
         // given - precondition or setup
         Employee employee = Employee.builder()
